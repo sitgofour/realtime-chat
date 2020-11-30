@@ -1,5 +1,6 @@
 const app = require('express')();
 const server = require('http').createServer(app);
+const myBot = require('./bot.js');
 
 
 const io = require("socket.io")(server, {
@@ -12,9 +13,22 @@ const io = require("socket.io")(server, {
   });
 
 io.on('connection', (socket) => {
-    socket.emit('server message', 'hellooo there');
+    const myMessage = myBot.botFunction();
+    socket.emit('server message', myMessage);
     console.log('a user connected');
+
+
+  socket.on('message', (msg) => {
+    let botResponse = myBot.parseIncomingMessage(msg); 
+
+    if(botResponse.length) {
+      socket.emit('server message', botResponse);
+    }
   });
+  
+});
+
+
 
 
 
