@@ -20,8 +20,9 @@ class App extends Component {
   componentDidMount() {
     const username = window.prompt('Username: ', 'Anonymous');
     this.setState({ username });
-    const pusher = new Pusher(APP_KEY, {
-      cluster: APP_CLUSTER,
+    console.log(process.env);
+    const pusher = new Pusher(process.env.REACT_APP_ID, {
+      cluster: process.env.REACT_APP_CLUSTER,
       encrypted: true
     });
     const channel = pusher.subscribe('chat');

@@ -2,6 +2,7 @@ const Pusher = require("pusher");
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+require('dotenv').config();
 
 const app = express();
 
@@ -9,11 +10,14 @@ app.use(cors());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
+console.log(process.env.APP_ID);
+
 const pusher = new Pusher({
-  appId: "APP_ID",
-  key: "APP_KEY",
-  secret: "APP_SECRET",
-  cluster: "APP_CLUSTER",
+  
+  appId: process.env.APP_ID,
+  key: process.env.APP_KEY,
+  secret: process.env.APP_SECRET,
+  cluster: process.env.APP_CLUSTER,
   useTLS: true
 });
 
