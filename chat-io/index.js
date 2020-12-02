@@ -18,12 +18,14 @@ io.on('connection', (socket) => {
     console.log('a user connected');
 
 
-  socket.on('message', (msg) => {
+  socket.on('userMessageFromClient', (msg) => {
     let botResponse = myBot.parseIncomingMessage(msg); 
 
     if(botResponse.length) {
       socket.emit('server message', botResponse);
     }
+
+    console.log({msg, botResponse});
   });
   
 });

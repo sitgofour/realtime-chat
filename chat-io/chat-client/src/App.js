@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 import io from 'socket.io-client';
 
@@ -7,25 +7,25 @@ function App() {
 
   const [response, setResponse] = useState("");
   const [message, setMessage] = useState("");
+  const socketRef = useRef();
   // const [chatMessages, setChatMessages] = useState([]);
 
   // When user loads page connect to server 
   useEffect(() => {
-    const socket = io('http://localhost:8000', {
+    socketRef.current = io('http://localhost:8000', {
       withCredentials: true,
       extraHeaders: {
         "my-custom-header": "abcd"
       }
     });
 
-    socket.on('server message', (message) => {
+    socketRef.current.on('server message', (message) => {
       setResponse(message);
       // setChatMessages((c) => {
       //   return [...chatMessages, message];
       // });
     });
 
-    return socket;
 
   }, []);
 
@@ -34,7 +34,7 @@ function App() {
   }
 
   function handleMessageSend() {
-    
+    socketRef.current.emit('userMessageFromClient', message);
   }
 
   return (
