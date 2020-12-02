@@ -10,7 +10,7 @@ const io = require("socket.io")(server, {
       allowedHeaders: ["my-custom-header"],
       credentials: true
     }
-  });
+});
 
 io.on('connection', (socket) => {
     const myMessage = myBot.botFunction();

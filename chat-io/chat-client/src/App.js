@@ -7,6 +7,7 @@ function App() {
 
   const [response, setResponse] = useState("");
   const [message, setMessage] = useState("");
+  // const [chatMessages, setChatMessages] = useState([]);
 
   // When user loads page connect to server 
   useEffect(() => {
@@ -19,11 +20,21 @@ function App() {
 
     socket.on('server message', (message) => {
       setResponse(message);
+      // setChatMessages((c) => {
+      //   return [...chatMessages, message];
+      // });
     });
+
+    return socket;
+
   }, []);
 
   function handleInputChange(e) {
     setMessage(e.target.value);
+  }
+
+  function handleMessageSend() {
+    
   }
 
   return (
@@ -31,7 +42,14 @@ function App() {
       <h1>Chat-Client</h1>
         <p>{response}</p>
         <p>{message}</p>
+        <div>
+          {/* {chatMessages.map((chatMsg) => {
+            return <p>{chatMsg}</p>
+          })} */}
+        </div>
+       
         <input type="text" onChange={handleInputChange}/>
+        <button type="submit" onClick={handleMessageSend}>Send</button>
     </div>
   );
 }
