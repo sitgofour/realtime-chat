@@ -1,10 +1,9 @@
 
-
 function ChatMessage(props) {
 
     return (
         <div>
-            <p>props.message</p>
+            <p>{props.message}</p>
         </div>
     )
 }
