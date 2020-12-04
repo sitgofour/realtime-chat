@@ -22,7 +22,9 @@ io.on('connection', (socket) => {
     let botResponse = myBot.parseIncomingMessage(msg); 
 
     if(botResponse.length) {
-      socket.emit('server message', botResponse);
+      socket.emit('bot response', botResponse);
+    } else {
+      socket.emit('chat message from server', msg);
     }
 
     console.log({msg, botResponse});
